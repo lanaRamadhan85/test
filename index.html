@@ -934,9 +934,129 @@
     }
 
     @media (max-width: 768px) {
-      aside {
-        display: none;
+      /* Header adjustments */
+      header {
+        padding: 0 16px;
+        height: 60px;
       }
+      .brand-name {
+        font-size: 14px;
+      }
+      .brand-icon-wrapper {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+      }
+      .avatar-info {
+        display: none; /* Hide details on mobile, only show initials badge */
+      }
+      .header-controls {
+        gap: 10px;
+      }
+      .theme-toggle-btn, .notification-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+
+      /* Horizontal sub-navigation on mobile */
+      aside {
+        display: flex !important;
+        height: 52px;
+        padding: 0 12px;
+        gap: 4px;
+        top: 60px;
+      }
+      .sidebar-item {
+        padding: 6px 10px;
+        font-size: 11px;
+        gap: 6px;
+        border-radius: var(--radius-sm);
+      }
+      .sidebar-item iconify-icon {
+        font-size: 15px;
+      }
+      .sidebar-badge {
+        font-size: 8px;
+        padding: 1px 4px;
+        margin-left: 2px;
+      }
+
+      /* Main container layout */
+      main {
+        padding: 16px;
+      }
+
+      /* Statistics Cards Grid */
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .stat-card {
+        padding: 16px;
+      }
+      .stat-number {
+        font-size: 20px;
+      }
+      .stat-title {
+        font-size: 11px;
+      }
+
+      /* Forms and Modals */
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .modal-box {
+        width: calc(100% - 24px) !important;
+        padding: 20px;
+        margin: 12px auto;
+      }
+      .med-card-body {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .med-card-avatar {
+        margin: 0 auto;
+      }
+      .med-info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      /* Page headers and toolbars */
+      .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .page-header .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .table-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .toolbar-left, .toolbar-right {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        width: 100%;
+      }
+      .search-control, .select-control, .toolbar-right .btn {
+        width: 100% !important;
+      }
+      .tab-navigation-wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 4px;
+      }
+    }
+
+    @media (max-width: 480px) {
       .stats-container {
         grid-template-columns: 1fr;
       }
