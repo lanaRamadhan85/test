@@ -1756,10 +1756,10 @@
             <div class="toolbar-right">
               <select class="select-control" onchange="handleTherapistFilter(this.value)">
                 <option value="">Semua Terapis</option>
-                <option>Ftr. Al Subur</option>
-                <option>Ftr. Dittany Sechan</option>
-                <option>Ftr. Ayanami Rei</option>
-                <option>Ftr. Satrio Adi</option>
+                <option>Ftr. Ahmad Fauzi</option>
+                <option>Ftr. Budi Santoso</option>
+                <option>Ftr. Sari Wahyuni</option>
+                <option>Ftr. Hendra Wijaya</option>
               </select>
               <button class="btn btn-secondary" onclick="exportDataToCsv()">
                 <iconify-icon icon="lucide:download" style="vertical-align: middle; margin-right: 4px;"></iconify-icon>
@@ -2118,10 +2118,10 @@
           <label class="form-label">Terapis *</label>
           <select class="form-select" id="fTerapis" required>
             <option value="">Pilih Terapis...</option>
-            <option>Ftr. Al Subur</option>
-            <option>Ftr. Dittany Sechan</option>
-            <option>Ftr. Ayanami Rei</option>
-            <option>Ftr. Satrio Adi</option>
+            <option>Ftr. Ahmad Fauzi</option>
+            <option>Ftr. Budi Santoso</option>
+            <option>Ftr. Sari Wahyuni</option>
+            <option>Ftr. Hendra Wijaya</option>
           </select>
         </div>
         <div class="form-group">
@@ -2182,32 +2182,32 @@
     const colors = ['#0d9488', '#3b82f6', '#6366f1', '#ec4899', '#f97316', '#10b981', '#06b6d4'];
     const initials = name => name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
 
-    const defaultPatients = [
-      { id:'PT-2501', name:'Siti Rahayu', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'08:00', status:'selesai', keluhan:'Nyeri sendi lutut kanan kronis pasca berjalan jauh' },
-      { id:'PT-2502', name:'Budi Hartono', terapi:'Terapi Neurologis', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'08:30', status:'selesai', keluhan:'Latihan keseimbangan motorik pasca stroke iskemik ringan' },
-      { id:'PT-2503', name:'Mega Wulandari', terapi:'Terapi Pediatri', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'09:00', status:'proses', keluhan:'Peningkatan gerak motorik kasar pada kelumpuhan otak ringan' },
-      { id:'PT-2504', name:'Hendra Kusuma', terapi:'Terapi Olahraga', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'09:30', status:'menunggu', keluhan:'Pemulihan nyeri ligamen kaki pasca cedera futsal' },
-      { id:'PT-2505', name:'Rina Agustina', terapi:'Terapi Geriatri', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'10:00', status:'menunggu', keluhan:'Pencegahan osteoporosis and latihan keseimbangan lansia' },
-      { id:'PT-2506', name:'Doni Prasetyo', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'10:30', status:'menunggu', keluhan:'Latihan kapasitas pernapasan dalam pasca asma bronkial' },
-      { id:'PT-2507', name:'Laila Sari', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'11:00', status:'selesai', keluhan:'Nyeri punggung bawah menjalar ke pinggang karena postur duduk salah' },
-      { id:'PT-2508', name:'Agus Setiawan', terapi:'Terapi Neurologis', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'11:30', status:'proses', keluhan:'Kelemahan saraf sensorik wajah / Bell\'s Palsy' },
-      { id:'PT-2509', name:'Rahmat Hidayat', terapi:'Terapi Pediatri', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'13:00', status:'selesai', keluhan:'Latihan berjalan untuk anak terlambat tumbuh kembang' },
-      { id:'PT-2510', name:'Diana Putri', terapi:'Terapi Olahraga', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'13:30', status:'menunggu', keluhan:'Cedera otot hamstring kaki kiri pasca lari maraton' },
-      { id:'PT-2511', name:'Eko Prasetyo', terapi:'Terapi Geriatri', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'14:00', status:'proses', keluhan:'Kekakuan sendi bahu (frozen shoulder) pada lansia' },
-      { id:'PT-2512', name:'Sari Dewi', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'14:30', status:'selesai', keluhan:'Rehabilitasi kebugaran pasca operasi pemasangan ring jantung' },
-      { id:'PT-2513', name:'Fajar Nugraha', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'15:00', status:'menunggu', keluhan:'Nyeri leher kaku menjalar ke lengan bawah kiri' },
-      { id:'PT-2514', name:'Gita Lestari', terapi:'Terapi Neurologis', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'15:30', status:'selesai', keluhan:'Latihan koordinasi tangan pasca cedera saraf tepi lengan' },
-      { id:'PT-2515', name:'Hadi Wijaya', terapi:'Terapi Pediatri', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'16:00', status:'proses', keluhan:'Terapi sensorik integrasi pada anak autisme ringan' },
-      { id:'PT-2516', name:'Ika Wahyuni', terapi:'Terapi Olahraga', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'16:30', status:'selesai', keluhan:'Dislokasi sendi bahu kanan pasca tanding basket' },
-      { id:'PT-2517', name:'Joko Susilo', terapi:'Terapi Geriatri', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'17:00', status:'menunggu', keluhan:'Pencegahan risiko jatuh lansia akibat vertigo berulang' },
-      { id:'PT-2518', name:'Kartika Sari', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'17:30', status:'selesai', keluhan:'Terapi pengembangan rongga dada pasca pneumonia akut' }
+     const defaultPatients = [
+      { id:'PT-2501', name:'Siti Aminah', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Ahmad Fauzi', tanggal:'2025-06-09', jam:'08:00', status:'selesai', keluhan:'Nyeri sendi lutut kanan kronis pasca berjalan jauh' },
+      { id:'PT-2502', name:'Budi Pratama', terapi:'Terapi Neurologis', terapis:'Ftr. Budi Santoso', tanggal:'2025-06-09', jam:'08:30', status:'selesai', keluhan:'Latihan keseimbangan motorik pasca stroke iskemik ringan' },
+      { id:'PT-2503', name:'Megawati Sukma', terapi:'Terapi Pediatri', terapis:'Ftr. Sari Wahyuni', tanggal:'2025-06-09', jam:'09:00', status:'proses', keluhan:'Peningkatan gerak motorik kasar pada kelumpuhan otak ringan' },
+      { id:'PT-2504', name:'Hendra Jaya', terapi:'Terapi Olahraga', terapis:'Ftr. Hendra Wijaya', tanggal:'2025-06-09', jam:'09:30', status:'menunggu', keluhan:'Pemulihan nyeri ligamen kaki pasca cedera futsal' },
+      { id:'PT-2505', name:'Rina Herawati', terapi:'Terapi Geriatri', terapis:'Ftr. Ahmad Fauzi', tanggal:'2025-06-09', jam:'10:00', status:'menunggu', keluhan:'Pencegahan osteoporosis and latihan keseimbangan lansia' },
+      { id:'PT-2506', name:'Doni Setiabudi', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Budi Santoso', tanggal:'2025-06-09', jam:'10:30', status:'menunggu', keluhan:'Latihan kapasitas pernapasan dalam pasca asma bronkial' },
+      { id:'PT-2507', name:'Laila Maimunah', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Sari Wahyuni', tanggal:'2025-06-09', jam:'11:00', status:'selesai', keluhan:'Nyeri punggung bawah menjalar ke pinggang karena postur duduk salah' },
+      { id:'PT-2508', name:'Agus Rahardjo', terapi:'Terapi Neurologis', terapis:'Ftr. Hendra Wijaya', tanggal:'2025-06-09', jam:'11:30', status:'proses', keluhan:'Kelemahan saraf sensorik wajah / Bell\'s Palsy' },
+      { id:'PT-2509', name:'Rahmat Hidayatullah', terapi:'Terapi Pediatri', terapis:'Ftr. Ahmad Fauzi', tanggal:'2025-06-09', jam:'13:00', status:'selesai', keluhan:'Latihan berjalan untuk anak terlambat tumbuh kembang' },
+      { id:'PT-2510', name:'Diana Kartika', terapi:'Terapi Olahraga', terapis:'Ftr. Budi Santoso', tanggal:'2025-06-09', jam:'13:30', status:'menunggu', keluhan:'Cedera otot hamstring kaki kiri pasca lari maraton' },
+      { id:'PT-2511', name:'Eko Susanto', terapi:'Terapi Geriatri', terapis:'Ftr. Sari Wahyuni', tanggal:'2025-06-09', jam:'14:00', status:'proses', keluhan:'Kekakuan sendi bahu (frozen shoulder) pada lansia' },
+      { id:'PT-2512', name:'Sari Puspita', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Hendra Wijaya', tanggal:'2025-06-09', jam:'14:30', status:'selesai', keluhan:'Rehabilitasi kebugaran pasca operasi pemasangan ring jantung' },
+      { id:'PT-2513', name:'Fajar Gumilang', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Ahmad Fauzi', tanggal:'2025-06-09', jam:'15:00', status:'menunggu', keluhan:'Nyeri leher kaku menjalar ke lengan bawah kiri' },
+      { id:'PT-2514', name:'Gita Handayani', terapi:'Terapi Neurologis', terapis:'Ftr. Budi Santoso', tanggal:'2025-06-09', jam:'15:30', status:'selesai', keluhan:'Latihan koordinasi tangan pasca cedera saraf tepi lengan' },
+      { id:'PT-2515', name:'Hadi Kusuma', terapi:'Terapi Pediatri', terapis:'Ftr. Sari Wahyuni', tanggal:'2025-06-09', jam:'16:00', status:'proses', keluhan:'Terapi sensorik integrasi pada anak autisme ringan' },
+      { id:'PT-2516', name:'Ika Rahmawati', terapi:'Terapi Olahraga', terapis:'Ftr. Hendra Wijaya', tanggal:'2025-06-09', jam:'16:30', status:'selesai', keluhan:'Dislokasi sendi bahu kanan pasca tanding basket' },
+      { id:'PT-2517', name:'Joko Riyanto', terapi:'Terapi Geriatri', terapis:'Ftr. Ahmad Fauzi', tanggal:'2025-06-09', jam:'17:00', status:'menunggu', keluhan:'Pencegahan risiko jatuh lansia akibat vertigo berulang' },
+      { id:'PT-2518', name:'Kartika Chandra', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Budi Santoso', tanggal:'2025-06-09', jam:'17:30', status:'selesai', keluhan:'Terapi pengembangan rongga dada pasca pneumonia akut' }
     ];
 
     const therapists = [
-      { name: "Ftr. Al Subur", specialty: "Spesialis Muskuloskeletal & Olahraga", shift: "08:00 - 17:00", sessions: "142 Sesi", bio: "Ahli rehabilitasi pasca cedera ligamen lutut ACL, meniscus, dan osteoarthritis sendi.", icon: "🧑‍⚕️", color: "#0d9488", workload: 80 },
-      { name: "Ftr. Dittany Sechan", specialty: "Spesialis Neurologis", shift: "08:00 - 15:00", sessions: "98 Sesi", bio: "Berpengalaman menangani terapi fungsional pasca stroke iskemik/hemoragik dan Parkinson.", icon: "👩‍⚕️", color: "#3b82f6", workload: 60 },
-      { name: "Ftr. Ayanami Rei", specialty: "Spesialis Pediatri", shift: "09:00 - 16:00", sessions: "120 Sesi", bio: "Fokus pada terapi motorik kasar/halus anak terlambat tumbuh kembang dan Cerebral Palsy.", icon: "👩‍⚕️", color: "#6366f1", workload: 75 },
-      { name: "Ftr. Satrio Adi", specialty: "Spesialis Geriatri & Kardiorespirasi", shift: "10:00 - 18:00", sessions: "115 Sesi", bio: "Menangani latihan pernapasan jantung asma paru dan stabilitas keseimbangan lansia.", icon: "🧑‍⚕️", color: "#f97316", workload: 55 }
+      { name: "Ftr. Ahmad Fauzi", specialty: "Spesialis Muskuloskeletal & Olahraga", shift: "08:00 - 17:00", sessions: "142 Sesi", bio: "Ahli rehabilitasi pasca cedera ligamen lutut ACL, meniscus, dan osteoarthritis sendi.", icon: "🧑‍⚕️", color: "#0d9488", workload: 80 },
+      { name: "Ftr. Budi Santoso", specialty: "Spesialis Neurologis", shift: "08:00 - 15:00", sessions: "98 Sesi", bio: "Berpengalaman menangani terapi fungsional pasca stroke iskemik/hemoragik dan Parkinson.", icon: "👩‍⚕️", color: "#3b82f6", workload: 60 },
+      { name: "Ftr. Sari Wahyuni", specialty: "Spesialis Pediatri", shift: "09:00 - 16:00", sessions: "120 Sesi", bio: "Fokus pada terapi motorik kasar/halus anak terlambat tumbuh kembang dan Cerebral Palsy.", icon: "👩‍⚕️", color: "#6366f1", workload: 75 },
+      { name: "Ftr. Hendra Wijaya", specialty: "Spesialis Geriatri & Kardiorespirasi", shift: "10:00 - 18:00", sessions: "115 Sesi", bio: "Menangani latihan pernapasan jantung asma paru dan stabilitas keseimbangan lansia.", icon: "🧑‍⚕️", color: "#f97316", workload: 55 }
     ];
 
     const therapyLayanans = [
