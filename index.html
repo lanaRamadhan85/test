@@ -1,0 +1,2915 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FisioHub Elite — Sistem Manajemen Klinik Fisioterapi Premium</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Iconify-Icon Script -->
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+  <style>
+    /* ── SYSTEM DESIGN SYSTEM & VARIABLES ── */
+    :root {
+      /* Light Theme Colors */
+      --primary: #0d9488;
+      --primary-light: #14b8a6;
+      --primary-dark: #0f766e;
+      --primary-glow: rgba(13, 148, 136, 0.15);
+      --primary-pale: #f0fdfa;
+      
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-pale: #e0e7ff;
+      
+      --bg-main: #f8fafc;
+      --bg-sidebar: #ffffff;
+      --bg-card: #ffffff;
+      
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      
+      --border-color: #e2e8f0;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-blur: blur(12px);
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 20px -2px rgba(15, 118, 110, 0.08);
+      --shadow-lg: 0 12px 30px -4px rgba(15, 118, 110, 0.12);
+      --shadow-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+      
+      /* Semantic Colors */
+      --success: #10b981;
+      --success-pale: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-pale: #fffbeb;
+      --error: #ef4444;
+      --error-pale: #fef2f2;
+      --info: #06b6d4;
+      --info-pale: #ecfeff;
+      
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="dark"] {
+      /* Dark Theme Colors */
+      --primary: #14b8a6;
+      --primary-light: #2dd4bf;
+      --primary-dark: #0d9488;
+      --primary-glow: rgba(20, 184, 166, 0.25);
+      --primary-pale: #0d2e2b;
+      
+      --accent: #818cf8;
+      --accent-light: #a5b4fc;
+      --accent-pale: #1e1b4b;
+      
+      --bg-main: #0b0f19;
+      --bg-sidebar: #111827;
+      --bg-card: #1f2937;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+      
+      --border-color: #374151;
+      --glass-bg: rgba(17, 24, 39, 0.7);
+      --glass-blur: blur(12px);
+      
+      --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 12px 30px -4px rgba(0, 0, 0, 0.5);
+      
+      --success: #34d399;
+      --success-pale: #064e3b;
+      --warning: #fbbf24;
+      --warning-pale: #78350f;
+      --error: #f87171;
+      --error-pale: #7f1d1d;
+      --info: #22d3ee;
+      --info-pale: #164e63;
+    }
+
+    /* ── BASE RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-main);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: var(--radius-pill);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-light);
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── PREMIUM HEADER ── */
+    header {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background var(--transition-normal), border var(--transition-normal);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-icon-wrapper {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--primary-glow);
+      transition: transform var(--transition-fast);
+      color: #ffffff;
+      font-size: 24px;
+    }
+
+    .brand:hover .brand-icon-wrapper {
+      transform: rotate(-5deg) scale(1.05);
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-name span {
+      color: var(--primary);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-toggle-btn, .action-icon-btn {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .theme-toggle-btn:hover, .action-icon-btn:hover {
+      background: var(--primary-pale);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle-btn iconify-icon, .action-icon-btn iconify-icon {
+      font-size: 20px;
+    }
+
+    .theme-toggle-btn .sun-icon,
+    [data-theme="dark"] .theme-toggle-btn .moon-icon {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-toggle-btn .sun-icon {
+      display: block;
+    }
+
+    .avatar-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-left: 16px;
+      border-left: 1px solid var(--border-color);
+      cursor: pointer;
+    }
+
+    .avatar-img {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .avatar-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .avatar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .avatar-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── SYSTEM CONTAINER LAYOUT ── */
+    .system-container {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    /* ── GLASSMORPHIC SIDEBAR ── */
+    aside {
+      width: 260px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      overflow-y: auto;
+      transition: background var(--transition-normal), border var(--transition-normal);
+    }
+
+    .sidebar-section-title {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 12px 6px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar-item iconify-icon {
+      font-size: 20px;
+      transition: transform var(--transition-fast);
+    }
+
+    .sidebar-item:hover {
+      background: var(--primary-pale);
+      color: var(--primary);
+    }
+
+    .sidebar-item:hover iconify-icon {
+      transform: translateX(2px);
+    }
+
+    .sidebar-item.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .sidebar-badge {
+      margin-left: auto;
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .sidebar-item.active .sidebar-badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    /* ── MAIN CONTENT AREA ── */
+    main {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      max-width: calc(100vw - 260px);
+    }
+
+    .page-view {
+      animation: pageTransition var(--transition-normal) forwards;
+      display: none;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    @keyframes pageTransition {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 20px;
+    }
+
+    .page-headline h1 {
+      font-size: 32px;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .page-headline p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 11px 22px;
+      border-radius: var(--radius-md);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--primary-glow);
+      filter: brightness(1.05);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-pale);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-main);
+      border-color: var(--text-light);
+    }
+
+    /* ── SYNC STATUS BAR ── */
+    .sync-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+      animation: floatBanner 6s ease-in-out infinite;
+    }
+
+    @keyframes floatBanner {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .sync-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sync-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--radius-pill);
+      background-color: var(--text-light);
+      position: relative;
+    }
+
+    .sync-dot.online {
+      background-color: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    .sync-dot.offline {
+      background-color: var(--error);
+      box-shadow: 0 0 8px var(--error);
+    }
+
+    .sync-dot.loading {
+      background-color: var(--warning);
+      animation: pulseSync 1s infinite alternate;
+    }
+
+    @keyframes pulseSync {
+      0% { opacity: 0.3; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 10px var(--warning); }
+    }
+
+    .sync-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .sync-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    /* ── PREMIUM STATS CARD GRID ── */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      top: -75px;
+      right: -75px;
+      border-radius: var(--radius-pill);
+      pointer-events: none;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+
+    .stat-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .stat-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition-fast);
+    }
+
+    .stat-card:hover .stat-card-icon {
+      transform: scale(1.1) rotate(2deg);
+    }
+
+    .stat-card-icon.teal { background: var(--primary-pale); color: var(--primary); }
+    .stat-card-icon.blue { background: var(--info-pale); color: var(--info); }
+    .stat-card-icon.amber { background: var(--warning-pale); color: var(--warning); }
+    .stat-card-icon.indigo { background: var(--accent-pale); color: var(--accent); }
+
+    .stat-card-icon iconify-icon {
+      font-size: 24px;
+    }
+
+    .stat-card-trend {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .stat-card-trend.up { background: var(--success-pale); color: var(--success); }
+    .stat-card-trend.down { background: var(--error-pale); color: var(--error); }
+    .stat-card-trend.neutral { background: var(--border-color); color: var(--text-muted); }
+
+    .stat-card-val {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .stat-card-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* ── GENERAL CARD/CONTAINER DESIGN ── */
+    .luxury-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      margin-bottom: 32px;
+      transition: border var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .card-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      flex: 1;
+      max-width: 340px;
+    }
+
+    .search-input-wrapper iconify-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--text-light);
+      pointer-events: none;
+    }
+
+    .search-control {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-color);
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    .search-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      background: var(--bg-card);
+    }
+
+    .pill-tabs {
+      display: flex;
+      background: var(--bg-main);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .pill-tab {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all var(--transition-fast);
+    }
+
+    .pill-tab.active {
+      background: var(--bg-card);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .select-control {
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .select-control:focus {
+      border-color: var(--primary);
+    }
+
+    /* ── CUSTOM TABLE ── */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    thead {
+      background: var(--bg-main);
+    }
+
+    thead th {
+      padding: 16px 24px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border-color);
+      transition: background var(--transition-fast);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--primary-pale);
+    }
+
+    tbody td {
+      padding: 16px 24px;
+      font-size: 14px;
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .patient-row-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .patient-circle-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      flex-shrink: 0;
+    }
+
+    .patient-text-name {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .patient-text-id {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .status-chip {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-chip::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: var(--radius-pill);
+      background-color: currentColor;
+    }
+
+    .status-chip.menunggu { background: var(--warning-pale); color: var(--warning); }
+    .status-chip.proses   { background: var(--info-pale); color: var(--info); }
+    .status-chip.selesai  { background: var(--success-pale); color: var(--success); }
+    .status-chip.batal    { background: var(--error-pale); color: var(--error); }
+
+    .action-badge-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      background: var(--primary-pale);
+      color: var(--primary);
+    }
+
+    .action-badge-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* ── PAGINATION ── */
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .pagination-description {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pagination-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .pagination-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      color: var(--text-muted);
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-pale);
+    }
+
+    .pagination-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ── SUBPAGES DETAILED GRID ── */
+    .grid-dashboard-bottom {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+    }
+
+    @media (max-width: 1200px) {
+      .grid-dashboard-bottom {
+        grid-template-columns: 1fr;
+      }
+      main {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      aside {
+        display: none;
+      }
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .inner-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      padding: 24px;
+    }
+
+    .inner-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .inner-card-title a {
+      font-size: 12px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color var(--transition-fast);
+    }
+
+    .inner-card-title a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* Timeline & List Items */
+    .timeline-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .timeline-time-badge {
+      min-width: 65px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-pale);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .timeline-content {
+      flex: 1;
+    }
+
+    .timeline-patient-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .timeline-therapy-type {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .timeline-therapist-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-pale);
+      color: var(--accent);
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    /* Activities */
+    .activity-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 12px;
+    }
+
+    .activity-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-main);
+      flex-shrink: 0;
+    }
+
+    .activity-circle iconify-icon {
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .activity-body {
+      flex: 1;
+    }
+
+    .activity-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .activity-text strong {
+      color: var(--text-main);
+    }
+
+    .activity-time {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* ── SPECIALIST CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .therapist-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .therapist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .therapist-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+
+    .therapist-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .therapist-title h3 {
+      font-size: 18px;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .therapist-title span {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .therapist-illustration {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-pill);
+      background: var(--primary-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .therapist-bio {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .therapist-workload {
+      margin-top: auto;
+    }
+
+    .workload-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .workload-bar-track {
+      height: 8px;
+      background: var(--bg-main);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .workload-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius-pill);
+      transition: width var(--transition-slow);
+    }
+
+    .therapist-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* ── CLINICAL CHARTS ── */
+    .chart-container-split {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 992px) {
+      .chart-container-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .chart-box-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+
+    .chart-bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .chart-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .chart-row-label {
+      min-width: 160px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .chart-row-track {
+      flex: 1;
+      height: 20px;
+      background: var(--bg-main);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .chart-row-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius-pill);
+      transition: width var(--transition-slow);
+    }
+
+    .chart-row-val {
+      min-width: 65px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: right;
+    }
+
+    .fin-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .fin-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .fin-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .fin-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .fin-value {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* ── ANIMATED MODALS (GLASSMORPHISM) ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 580px;
+      max-width: 90vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.95) translateY(20px);
+      transition: transform var(--transition-normal);
+      padding: 32px;
+      position: relative;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--bg-main);
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .modal-close-btn:hover {
+      background: var(--error-pale);
+      color: var(--error);
+    }
+
+    /* Modal Form Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-full-col {
+      grid-column: 1 / -1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-main);
+      outline: none;
+      transition: all var(--transition-fast);
+      background: var(--bg-card);
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-section-divider {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin: 12px 0 4px;
+      grid-column: 1 / -1;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 28px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+
+    /* ── MEDICAL CARD MODAL SPECIFICS ── */
+    .med-card-body {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 20px;
+    }
+
+    .med-card-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 38px;
+      font-weight: 800;
+      box-shadow: 0 6px 16px var(--primary-glow);
+    }
+
+    .med-card-details h3 {
+      font-size: 20px;
+      color: var(--text-main);
+    }
+
+    .med-card-details p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .med-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    .med-info-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+
+    .med-info-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 4px;
+    }
+
+    .body-map-illustration {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .body-map-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .body-map-svg {
+      width: 160px;
+      height: 160px;
+      fill: none;
+      stroke: var(--text-light);
+      stroke-width: 1.5;
+    }
+
+    .body-map-svg .pain-point {
+      fill: var(--error);
+      stroke: #ffffff;
+      stroke-width: 1.5;
+      animation: pulsePain 1.5s infinite alternate;
+    }
+
+    @keyframes pulsePain {
+      0% { r: 4px; opacity: 0.5; }
+      100% { r: 7px; opacity: 1; filter: drop-shadow(0 0 4px var(--error)); }
+    }
+
+    /* ── SYSTEM INSTRUCTIONS BANNER ── */
+    .instruction-card {
+      background: var(--accent-pale);
+      border: 1px solid var(--accent-light);
+      color: var(--text-main);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .instruction-card strong {
+      color: var(--accent);
+    }
+
+    /* ── TOAST NOTIFICATION ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-main);
+      color: var(--bg-sidebar);
+      padding: 14px 24px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .toast.show {
+      transform: none;
+      opacity: 1;
+    }
+
+    .toast-icon {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="brand" onclick="showPageView('dashboard')">
+      <div class="brand-icon-wrapper">
+        <iconify-icon icon="lucide:cross"></iconify-icon>
+      </div>
+      <span class="brand-name">Fisio<span>Hub</span></span>
+    </a>
+    
+    <div class="header-controls">
+      <!-- Dark/Light Theme Toggle -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Ubah Mode Layar" id="themeBtn">
+        <!-- Moon Icon -->
+        <iconify-icon class="moon-icon" icon="lucide:moon"></iconify-icon>
+        <!-- Sun Icon -->
+        <iconify-icon class="sun-icon" icon="lucide:sun"></iconify-icon>
+      </button>
+
+      <!-- Active Queue Badge -->
+      <button class="action-icon-btn" onclick="showPageView('pendaftaran')" title="Antrean Aktif">
+        <iconify-icon icon="lucide:bell"></iconify-icon>
+        <span class="sidebar-badge" style="position: absolute; top: -5px; right: -5px; margin: 0; padding: 2px 6px;" id="headerQueueBadge">0</span>
+      </button>
+
+      <!-- Admin Profile Info -->
+      <div class="avatar-wrapper" onclick="showPageView('pengaturan')">
+        <div class="avatar-img">AD</div>
+        <div class="avatar-info">
+          <span class="avatar-title">Administrator</span>
+          <span class="avatar-subtitle">Klinik Sehat Prima</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="system-container">
+    <!-- SIDEBAR -->
+    <aside>
+      <span class="sidebar-section-title">Menu Utama</span>
+      <button class="sidebar-item active" id="side-dashboard" onclick="showPageView('dashboard')">
+        <iconify-icon icon="lucide:layout-dashboard"></iconify-icon>
+        Dashboard
+      </button>
+      <button class="sidebar-item" id="side-pendaftaran" onclick="showPageView('pendaftaran')">
+        <iconify-icon icon="lucide:user-plus"></iconify-icon>
+        Pendaftaran
+        <span class="sidebar-badge" id="pendingRegisterCount">0</span>
+      </button>
+      <button class="sidebar-item" id="side-pasien" onclick="showPageView('pasien')">
+        <iconify-icon icon="lucide:users"></iconify-icon>
+        Data Pasien
+        <span class="sidebar-badge" id="totalPatientsCount">0</span>
+      </button>
+      <button class="sidebar-item" id="side-jadwal" onclick="showPageView('jadwal')">
+        <iconify-icon icon="lucide:calendar"></iconify-icon>
+        Jadwal Sesi
+      </button>
+      <button class="sidebar-item" id="side-rekam" onclick="showPageView('rekam-medis')">
+        <iconify-icon icon="lucide:activity"></iconify-icon>
+        Rekam Medis
+      </button>
+
+      <span class="sidebar-section-title">Manajemen</span>
+      <button class="sidebar-item" id="side-terapis" onclick="showPageView('terapis')">
+        <iconify-icon icon="lucide:user-check"></iconify-icon>
+        Terapis
+      </button>
+      <button class="sidebar-item" id="side-jenis-terapi" onclick="showPageView('jenis-terapi')">
+        <iconify-icon icon="lucide:tag"></iconify-icon>
+        Jenis Terapi
+      </button>
+      <button class="sidebar-item" id="side-pembayaran" onclick="showPageView('pembayaran')">
+        <iconify-icon icon="lucide:credit-card"></iconify-icon>
+        Pembayaran
+      </button>
+      <button class="sidebar-item" id="side-laporan" onclick="showPageView('laporan')">
+        <iconify-icon icon="lucide:trending-up"></iconify-icon>
+        Laporan
+      </button>
+
+      <span class="sidebar-section-title">Sistem</span>
+      <button class="sidebar-item" id="side-pengaturan" onclick="showPageView('pengaturan')">
+        <iconify-icon icon="lucide:settings"></iconify-icon>
+        Pengaturan
+      </button>
+    </aside>
+
+    <!-- MAIN VIEW -->
+    <main>
+      <!-- SYNC STATUS BANNER -->
+      <div class="sync-banner">
+        <div class="sync-status-indicator">
+          <div class="sync-dot" id="syncDot"></div>
+          <div>
+            <span class="sync-title" id="syncText">Mencoba menghubungkan database Google Sheets...</span>
+            <span class="sync-time" id="syncTime"></span>
+          </div>
+        </div>
+        <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="fetchPatientsFromSheets()">
+          <iconify-icon icon="lucide:refresh-cw" style="vertical-align: middle; margin-right: 4px;"></iconify-icon>
+          Sinkronisasi Ulang
+        </button>
+      </div>
+
+      <!-- ── 1. DASHBOARD VIEW ── -->
+      <div id="dashboardView" class="page-view active">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1 id="welcomeText">Selamat Pagi, Admin 👋</h1>
+            <p>Klinik Fisioterapi Sehat Prima · Agenda & Perkembangan Sesi Fisioterapi</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddPatientModal()">
+            <iconify-icon icon="lucide:plus" style="font-size: 18px;"></iconify-icon>
+            Daftarkan Pasien
+          </button>
+        </div>
+
+        <!-- STATS CARDS -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon teal">
+                <iconify-icon icon="lucide:users"></iconify-icon>
+              </div>
+              <span class="stat-card-trend up" id="statsTotalLabel">Aktif</span>
+            </div>
+            <div class="stat-card-val" id="statsTotal">0</div>
+            <div class="stat-label">Total Pasien Terdaftar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon blue">
+                <iconify-icon icon="lucide:calendar"></iconify-icon>
+              </div>
+              <span class="stat-card-trend up">Hari Ini</span>
+            </div>
+            <div class="stat-card-val" id="statsToday">18</div>
+            <div class="stat-label">Sesi Hari Ini</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon amber">
+                <iconify-icon icon="lucide:clock"></iconify-icon>
+              </div>
+              <span class="stat-card-trend neutral" id="statsQueueTrend">Normal</span>
+            </div>
+            <div class="stat-card-val" id="statsQueue">0</div>
+            <div class="stat-label">Menunggu Antrian</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon indigo">
+                <iconify-icon icon="lucide:user-check"></iconify-icon>
+              </div>
+              <span class="stat-card-trend up">Selesai</span>
+            </div>
+            <div class="stat-card-val" id="statsDone">0</div>
+            <div class="stat-label">Sesi Selesai Hari Ini</div>
+          </div>
+        </div>
+
+        <!-- MAIN PASIEN TABLE (LUXURY CARD) -->
+        <div class="luxury-card">
+          <div class="card-toolbar">
+            <div class="toolbar-left">
+              <div class="search-input-wrapper">
+                <iconify-icon icon="lucide:search"></iconify-icon>
+                <input type="text" class="search-control" placeholder="Cari nama atau ID pasien..." oninput="handleSearch(this.value)">
+              </div>
+              <div class="pill-tabs">
+                <button class="pill-tab active" onclick="setFilterTab(this, 'Semua')">Semua</button>
+                <button class="pill-tab" onclick="setFilterTab(this, 'Menunggu')">Menunggu</button>
+                <button class="pill-tab" onclick="setFilterTab(this, 'Proses')">Proses</button>
+                <button class="pill-tab" onclick="setFilterTab(this, 'Selesai')">Selesai</button>
+              </div>
+            </div>
+            <div class="toolbar-right">
+              <select class="select-control" onchange="handleTherapistFilter(this.value)">
+                <option value="">Semua Terapis</option>
+                <option>Ftr. Al Subur</option>
+                <option>Ftr. Dittany Sechan</option>
+                <option>Ftr. Ayanami Rei</option>
+                <option>Ftr. Satrio Adi</option>
+              </select>
+              <button class="btn btn-secondary" onclick="exportDataToCsv()">
+                <iconify-icon icon="lucide:download" style="vertical-align: middle; margin-right: 4px;"></iconify-icon>
+                Ekspor CSV
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table id="patientTable">
+              <thead>
+                <tr>
+                  <th>Pasien</th>
+                  <th>Jenis Terapi</th>
+                  <th>Terapis</th>
+                  <th>Tanggal</th>
+                  <th>Waktu</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Sliced Patient Data will load dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- TABLE PAGINATION -->
+          <div class="pagination-bar">
+            <span class="pagination-description" id="paginationInfo">Menampilkan 0–0 dari 0 pasien</span>
+            <div class="pagination-buttons" id="paginationBtns">
+              <!-- Pagination controls dynamically load -->
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM GRID -->
+        <div class="grid-dashboard-bottom">
+          <!-- Timeline Jadwal -->
+          <div class="inner-card">
+            <div class="inner-card-title">
+              <span>📅 Jadwal Sesi Hari Ini</span>
+              <a href="#" onclick="showPageView('jadwal')">Lihat Semua →</a>
+            </div>
+            <div class="timeline-wrapper" id="scheduleList">
+              <!-- Sesi timeline loads here -->
+            </div>
+          </div>
+
+          <!-- Aktivitas Klinik -->
+          <div class="inner-card">
+            <div class="inner-card-title">
+              <span>🔔 Aktivitas Terbaru</span>
+              <a href="#">Semua →</a>
+            </div>
+            <div class="activity-wrapper" id="activityList">
+              <!-- Aktivitas audit trail loads here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 2. PENDAFTARAN VIEW ── -->
+      <div id="pendaftaranView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Pendaftaran Pasien Aktif / Menunggu</h1>
+            <p>Mengelola data pasien yang sedang mengantre sesi terapi hari ini.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddPatientModal()">＋ Tambah Pendaftaran</button>
+        </div>
+        <div class="luxury-card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nama Pasien</th>
+                  <th>Jenis Terapi</th>
+                  <th>Terapis</th>
+                  <th>Jadwal Sesi</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="pendaftaranList">
+                <!-- Dynamic queue data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 3. DATA PASIEN VIEW ── -->
+      <div id="pasienView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Database Rekam Pasien</h1>
+            <p>Daftar seluruh pasien yang terdaftar di dalam database klinik fisioterapi.</p>
+          </div>
+        </div>
+        <div class="luxury-card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Pasien</th>
+                  <th>Nama Lengkap</th>
+                  <th>Layanan Terapi Terakhir</th>
+                  <th>Terapis Penanggung Jawab</th>
+                  <th>Tanggal Terdaftar</th>
+                  <th>Status Kunjungan</th>
+                </tr>
+              </thead>
+              <tbody id="pasienList">
+                <!-- Dynamic patient database -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 4. JADWAL SESI VIEW ── -->
+      <div id="jadwalView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Jadwal Sesi & Agenda Klinik</h1>
+            <p>Pengaturan detail pembagian ruang terapi, jadwal jam, serta pembimbing terapis.</p>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px;" id="jadwalSesiDetailList">
+          <!-- Timetable schedule grid -->
+        </div>
+      </div>
+
+      <!-- ── 5. REKAM MEDIS VIEW ── -->
+      <div id="rekam-medisView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Arsip Rekam Medis Pasien</h1>
+            <p>Keluhan utama, riwayat diagnosis, dan program latihan/fisioterapi pasien.</p>
+          </div>
+        </div>
+        <div class="luxury-card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Pasien</th>
+                  <th>Nama Pasien</th>
+                  <th>Diagnosa Utama / Keluhan</th>
+                  <th>Catatan Program Terapi</th>
+                  <th>Pemeriksa / Terapis</th>
+                </tr>
+              </thead>
+              <tbody id="rekamMedisList">
+                <!-- Medical history rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 6. TERAPIS VIEW ── -->
+      <div id="terapisView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Data Spesialis Terapis</h1>
+            <p>Daftar tenaga medis fisioterapi beserta spesialisasi dan beban kerja hari ini.</p>
+          </div>
+        </div>
+        <div class="cards-grid" id="terapisListContainer">
+          <!-- Therapist cards load here -->
+        </div>
+      </div>
+
+      <!-- ── 7. JENIS TERAPI VIEW ── -->
+      <div id="jenis-terapiView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Katalog Layanan Terapi Fisik</h1>
+            <p>Daftar lengkap metode fisioterapi, alokasi waktu sesi, dan estimasi biaya.</p>
+          </div>
+        </div>
+        <div class="cards-grid" id="jenisTerapiContainer">
+          <!-- Therapy katalog cards load here -->
+        </div>
+      </div>
+
+      <!-- ── 8. PEMBAYARAN VIEW ── -->
+      <div id="pembayaranView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Invoice & Riwayat Pembayaran</h1>
+            <p>Catatan penagihan billing, metode pembayaran, serta riwayat lunas pasien.</p>
+          </div>
+        </div>
+        <div class="luxury-card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>No. Invoice</th>
+                  <th>Nama Pasien</th>
+                  <th>Layanan Terapi</th>
+                  <th>Metode Pembayaran</th>
+                  <th>Total Billing</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="pembayaranList">
+                <!-- Payment log rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 9. LAPORAN VIEW ── -->
+      <div id="laporanView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Laporan Analisis & Statistik Klinik</h1>
+            <p>Statistik operasional penanganan pasien terfavorit serta ringkasan finansial.</p>
+          </div>
+        </div>
+        
+        <div class="chart-container-split">
+          <!-- Chart Pembagian Layanan -->
+          <div class="chart-box">
+            <h3 class="chart-box-title">Pembagian Sesi Berdasarkan Jenis Terapi</h3>
+            <div class="chart-bar-group" id="terapiDistributionChart">
+              <!-- CSS bars chart dynamically calculated -->
+            </div>
+          </div>
+
+          <!-- Fin Summary -->
+          <div class="chart-box" style="display: flex; flex-direction: column; justify-content: center;">
+            <h3 class="chart-box-title">Ringkasan Data Finansial</h3>
+            <div class="fin-list">
+              <div class="fin-row">
+                <span class="fin-label">Total Pasien Terdaftar</span>
+                <span class="fin-value" id="reportTotalCount">0 Pasien</span>
+              </div>
+              <div class="fin-row">
+                <span class="fin-label">Estimasi Pendapatan Hari Ini</span>
+                <span class="fin-value" style="color: var(--success); font-weight: 800;">Rp 4.500.000</span>
+              </div>
+              <div class="fin-row">
+                <span class="fin-label">Sesi Selesai (Live)</span>
+                <span class="fin-value" id="reportDoneCount">0 Sesi</span>
+              </div>
+              <div class="fin-row">
+                <span class="fin-label">Sesi Mengantri (Live)</span>
+                <span class="fin-value" id="reportQueueCount">0 Sesi</span>
+              </div>
+              <div class="fin-row">
+                <span class="fin-label">Rasio Kehadiran Sesi</span>
+                <span class="fin-value">94.8%</span>
+              </div>
+              <div class="fin-row">
+                <span class="fin-label">Layanan Terfavorit</span>
+                <span class="fin-value" style="color: var(--primary);">Terapi Muskuloskeletal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 10. PENGATURAN VIEW ── -->
+      <div id="pengaturanView" class="page-view">
+        <div class="page-header">
+          <div class="page-headline">
+            <h1>Pengaturan Integrasi Database</h1>
+            <p>Hubungkan website ke Google Sheets menggunakan API Google Apps Script Web App.</p>
+          </div>
+        </div>
+
+        <div class="instruction-card">
+          <strong>💡 Cara Setup Integrasi Google Sheets:</strong><br>
+          1. Buka Google Sheets Anda dan buat spreadsheet baru.<br>
+          2. Klik menu <strong>Ekstensi > Apps Script</strong>.<br>
+          3. Salin dan tempelkan kode Apps Script backend (bisa dilihat di panduan).<br>
+          4. Klik <strong>Terapkan > Penerapan Baru</strong>, pilih jenis <strong>Aplikasi Web</strong>.<br>
+          5. Atur akses ke <strong>"Siapa saja" (Anyone)</strong> lalu salin URL Web App yang dihasilkan ke kolom di bawah ini.
+        </div>
+
+        <div class="luxury-card" style="padding: 28px;">
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label" style="font-size:13px; font-weight:700;">Google Apps Script Web App URL</label>
+            <input type="text" class="form-input" id="cfgAppsScriptUrl" placeholder="https://script.google.com/macros/s/.../exec" style="margin-top: 8px;">
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">URL ini digunakan untuk menyimpan pendaftaran pasien langsung ke Google Sheets Anda secara otomatis.</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveSettings()">
+            <iconify-icon icon="lucide:save" style="vertical-align: middle; margin-right: 4px;"></iconify-icon>
+            Simpan & Hubungkan Database
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: DAFTAR PASIEN BARU -->
+  <div class="modal-overlay" id="addPatientModal" onclick="closeModalOutside(event, 'addPatientModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="modal-title">Daftarkan Pasien Baru</h2>
+        <button class="modal-close-btn" onclick="closeAddPatientModal()">✕</button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-section-divider" style="border:none; padding-top:0;">Data Pribadi Pasien</div>
+        
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap *</label>
+          <input type="text" class="form-input" id="fNama" placeholder="Budi Santoso" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">No. KTP / NIK</label>
+          <input type="text" class="form-input" id="fKtp" placeholder="3271xxxxxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tanggal Lahir</label>
+          <input type="date" class="form-input" id="fTglLahir">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Jenis Kelamin</label>
+          <select class="form-select" id="fGender">
+            <option value="">Pilih...</option>
+            <option>Laki-laki</option>
+            <option>Perempuan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">No. Handphone *</label>
+          <input type="tel" class="form-input" id="fPhone" placeholder="08xxxxxxxxxx" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="fEmail" placeholder="email@contoh.com">
+        </div>
+
+        <div class="form-section-divider">Jadwal & Detail Terapi</div>
+        
+        <div class="form-group">
+          <label class="form-label">Jenis Terapi *</label>
+          <select class="form-select" id="fTerapi" required>
+            <option value="">Pilih Terapi...</option>
+            <option>Terapi Muskuloskeletal</option>
+            <option>Terapi Neurologis</option>
+            <option>Terapi Pediatri</option>
+            <option>Terapi Olahraga</option>
+            <option>Terapi Geriatri</option>
+            <option>Terapi Kardiorespirasi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Terapis *</label>
+          <select class="form-select" id="fTerapis" required>
+            <option value="">Pilih Terapis...</option>
+            <option>Ftr. Al Subur</option>
+            <option>Ftr. Dittany Sechan</option>
+            <option>Ftr. Ayanami Rei</option>
+            <option>Ftr. Satrio Adi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tanggal Kunjungan *</label>
+          <input type="date" class="form-input" id="fTanggal" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Jam Kunjungan *</label>
+          <select class="form-select" id="fJam" required>
+            <option value="">Pilih Jam...</option>
+            <option>08:00</option><option>08:30</option>
+            <option>09:00</option><option>09:30</option>
+            <option>10:00</option><option>10:30</option>
+            <option>11:00</option><option>13:00</option>
+            <option>13:30</option><option>14:00</option>
+            <option>14:30</option><option>15:00</option>
+          </select>
+        </div>
+        <div class="form-group form-full-col">
+          <label class="form-label">Keluhan Utama / Catatan Klinis</label>
+          <textarea class="form-textarea" id="fKeluhan" placeholder="Deskripsikan keluhan nyeri, lokasi cidera, atau riwayat pasca operasi..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeAddPatientModal()">Batal</button>
+        <button class="btn btn-primary" id="btnSimpan" onclick="submitRegistration()">Daftarkan Pasien</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DETAIL MEDICAL CARD PASIEN -->
+  <div class="modal-overlay" id="patientDetailModal" onclick="closeModalOutside(event, 'patientDetailModal')">
+    <div class="modal-box" style="width: 620px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Kartu Rekam Medis Pasien</h2>
+        <button class="modal-close-btn" onclick="closePatientDetailModal()">✕</button>
+      </div>
+      
+      <div id="patientDetailContent">
+        <!-- Dynamic Patient Medical Card Content Loads Here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">
+    <span class="toast-icon" id="toastIcon">✅</span>
+    <span id="toastMsg">Data berhasil disimpan!</span>
+  </div>
+
+  <!-- ── CORE LOGIC & CONTROLLERS ── -->
+  <script>
+    /* ── LOCAL STORAGE CONFIGURATION ── */
+    let APPS_SCRIPT_URL = localStorage.getItem("APPS_SCRIPT_URL") || "https://script.google.com/macros/s/AKfycbz7M62HsofcuhA77MoAxZy5AHSSPENSWJHS-UTi-tzRFoJQj2_6lcJ6blUmpX7oQ8kDjg/exec";
+
+    /* ── DATA MATRIKS (18 DATA INTEGRITAS TERSTRUKTUR) ── */
+    const colors = ['#0d9488', '#3b82f6', '#6366f1', '#ec4899', '#f97316', '#10b981', '#06b6d4'];
+    const initials = name => name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+
+    const defaultPatients = [
+      { id:'PT-2501', name:'Siti Rahayu', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'08:00', status:'selesai', keluhan:'Nyeri sendi lutut kanan kronis pasca berjalan jauh' },
+      { id:'PT-2502', name:'Budi Hartono', terapi:'Terapi Neurologis', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'08:30', status:'selesai', keluhan:'Latihan keseimbangan motorik pasca stroke iskemik ringan' },
+      { id:'PT-2503', name:'Mega Wulandari', terapi:'Terapi Pediatri', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'09:00', status:'proses', keluhan:'Peningkatan gerak motorik kasar pada kelumpuhan otak ringan' },
+      { id:'PT-2504', name:'Hendra Kusuma', terapi:'Terapi Olahraga', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'09:30', status:'menunggu', keluhan:'Pemulihan nyeri ligamen kaki pasca cedera futsal' },
+      { id:'PT-2505', name:'Rina Agustina', terapi:'Terapi Geriatri', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'10:00', status:'menunggu', keluhan:'Pencegahan osteoporosis and latihan keseimbangan lansia' },
+      { id:'PT-2506', name:'Doni Prasetyo', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'10:30', status:'menunggu', keluhan:'Latihan kapasitas pernapasan dalam pasca asma bronkial' },
+      { id:'PT-2507', name:'Laila Sari', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'11:00', status:'selesai', keluhan:'Nyeri punggung bawah menjalar ke pinggang karena postur duduk salah' },
+      { id:'PT-2508', name:'Agus Setiawan', terapi:'Terapi Neurologis', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'11:30', status:'proses', keluhan:'Kelemahan saraf sensorik wajah / Bell\'s Palsy' },
+      { id:'PT-2509', name:'Rahmat Hidayat', terapi:'Terapi Pediatri', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'13:00', status:'selesai', keluhan:'Latihan berjalan untuk anak terlambat tumbuh kembang' },
+      { id:'PT-2510', name:'Diana Putri', terapi:'Terapi Olahraga', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'13:30', status:'menunggu', keluhan:'Cedera otot hamstring kaki kiri pasca lari maraton' },
+      { id:'PT-2511', name:'Eko Prasetyo', terapi:'Terapi Geriatri', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'14:00', status:'proses', keluhan:'Kekakuan sendi bahu (frozen shoulder) pada lansia' },
+      { id:'PT-2512', name:'Sari Dewi', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'14:30', status:'selesai', keluhan:'Rehabilitasi kebugaran pasca operasi pemasangan ring jantung' },
+      { id:'PT-2513', name:'Fajar Nugraha', terapi:'Terapi Muskuloskeletal', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'15:00', status:'menunggu', keluhan:'Nyeri leher kaku menjalar ke lengan bawah kiri' },
+      { id:'PT-2514', name:'Gita Lestari', terapi:'Terapi Neurologis', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'15:30', status:'selesai', keluhan:'Latihan koordinasi tangan pasca cedera saraf tepi lengan' },
+      { id:'PT-2515', name:'Hadi Wijaya', terapi:'Terapi Pediatri', terapis:'Ftr. Ayanami Rei', tanggal:'2025-06-09', jam:'16:00', status:'proses', keluhan:'Terapi sensorik integrasi pada anak autisme ringan' },
+      { id:'PT-2516', name:'Ika Wahyuni', terapi:'Terapi Olahraga', terapis:'Ftr. Satrio Adi', tanggal:'2025-06-09', jam:'16:30', status:'selesai', keluhan:'Dislokasi sendi bahu kanan pasca tanding basket' },
+      { id:'PT-2517', name:'Joko Susilo', terapi:'Terapi Geriatri', terapis:'Ftr. Al Subur', tanggal:'2025-06-09', jam:'17:00', status:'menunggu', keluhan:'Pencegahan risiko jatuh lansia akibat vertigo berulang' },
+      { id:'PT-2518', name:'Kartika Sari', terapi:'Terapi Kardiorespirasi', terapis:'Ftr. Dittany Sechan', tanggal:'2025-06-09', jam:'17:30', status:'selesai', keluhan:'Terapi pengembangan rongga dada pasca pneumonia akut' }
+    ];
+
+    const therapists = [
+      { name: "Ftr. Al Subur", specialty: "Spesialis Muskuloskeletal & Olahraga", shift: "08:00 - 17:00", sessions: "142 Sesi", bio: "Ahli rehabilitasi pasca cedera ligamen lutut ACL, meniscus, dan osteoarthritis sendi.", icon: "🧑‍⚕️", color: "#0d9488", workload: 80 },
+      { name: "Ftr. Dittany Sechan", specialty: "Spesialis Neurologis", shift: "08:00 - 15:00", sessions: "98 Sesi", bio: "Berpengalaman menangani terapi fungsional pasca stroke iskemik/hemoragik dan Parkinson.", icon: "👩‍⚕️", color: "#3b82f6", workload: 60 },
+      { name: "Ftr. Ayanami Rei", specialty: "Spesialis Pediatri", shift: "09:00 - 16:00", sessions: "120 Sesi", bio: "Fokus pada terapi motorik kasar/halus anak terlambat tumbuh kembang dan Cerebral Palsy.", icon: "👩‍⚕️", color: "#6366f1", workload: 75 },
+      { name: "Ftr. Satrio Adi", specialty: "Spesialis Geriatri & Kardiorespirasi", shift: "10:00 - 18:00", sessions: "115 Sesi", bio: "Menangani latihan pernapasan jantung asma paru dan stabilitas keseimbangan lansia.", icon: "🧑‍⚕️", color: "#f97316", workload: 55 }
+    ];
+
+    const therapyLayanans = [
+      { name: "Terapi Muskuloskeletal", duration: "45 Menit", price: "Rp 250.000", code: "TMS-01", description: "Perbaikan fungsi gerak sendi lutut, bahu, otot punggung bawah, dan cedera otot sendi kronis." },
+      { name: "Terapi Neurologis", duration: "60 Menit", price: "Rp 300.000", code: "TNE-02", description: "Fisioterapi pemulihan stroke saraf motorik, koordinasi gerak tubuh, dan Bell's Palsy wajah." },
+      { name: "Terapi Pediatri", duration: "45 Menit", price: "Rp 275.000", code: "TPE-03", description: "Fisioterapi tumbuh kembang anak, cerebral palsy, dan keterlambatan motorik balita." },
+      { name: "Terapi Olahraga", duration: "50 Menit", price: "Rp 280.000", code: "TOL-04", description: "Rehabilitasi robekan otot hamstring, pemulihan ACL lutut, meniscus, serta kebugaran atlet." },
+      { name: "Terapi Geriatri", duration: "40 Menit", price: "Rp 220.000", code: "TGE-05", description: "Pelatihan kekuatan gerak fisik lansia agar terhindar dari resiko jatuh dan melatih kekuatan otot kaki." },
+      { name: "Terapi Kardiorespirasi", duration: "45 Menit", price: "Rp 290.000", code: "TKA-06", description: "Melatih kapasitas fungsi pernapasan paru dan jantung pasca serangan asma berat atau pneumonia." }
+    ];
+
+    const statusLabels = { selesai:'Selesai', proses:'Proses', menunggu:'Menunggu', batal:'Batal' };
+
+    let allPatients = [...defaultPatients];
+    let filteredPatients = [...defaultPatients];
+    const itemsPerPage = 6;
+    let currentPage = 1;
+
+    let searchQuery = "";
+    let statusFilter = "Semua";
+    let therapistFilter = "";
+
+    /* ── INIT ON LOAD ── */
+    window.onload = function() {
+      // Set Theme
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      
+      // Load Settings Input
+      const scriptInput = document.getElementById("cfgAppsScriptUrl");
+      if(scriptInput) scriptInput.value = APPS_SCRIPT_URL;
+
+      // Welcome Text by Time
+      const hours = new Date().getHours();
+      let greeting = "Selamat Pagi";
+      if (hours >= 12 && hours < 15) greeting = "Selamat Siang";
+      else if (hours >= 15 && hours < 18) greeting = "Selamat Sore";
+      else if (hours >= 18 || hours < 5) greeting = "Selamat Malam";
+      document.getElementById("welcomeText").innerText = `${greeting}, Admin 👋`;
+
+      fetchPatientsFromSheets();
+      insertActivities();
+    };
+
+    /* ── CORE NAVIGATOR ── */
+    function showPageView(viewName) {
+      document.querySelectorAll('.page-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('aside .sidebar-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      const activeView = document.getElementById(viewName + 'View');
+      if(activeView) activeView.classList.add('active');
+
+      const activeSidebar = document.getElementById('side-' + viewName);
+      if(activeSidebar) activeSidebar.classList.add('active');
+
+      // Scroll to top
+      document.querySelector('main').scrollTop = 0;
+    }
+
+    /* ── THEME CONTROLLER ── */
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", nextTheme);
+      localStorage.setItem("theme", nextTheme);
+      showToast("🌓 Mode layar berhasil diubah!");
+    }
+
+    /* ── GOOGLE SHEETS SINKRONISASI (READ API) ── */
+    async function fetchPatientsFromSheets() {
+      const syncDot = document.getElementById("syncDot");
+      const syncText = document.getElementById("syncText");
+      const syncTime = document.getElementById("syncTime");
+      
+      if (!syncDot || !syncText) return;
+
+      syncDot.className = "sync-dot loading";
+      syncText.innerText = "Membaca data terbaru dari Google Sheets...";
+
+      const isUrlValid = APPS_SCRIPT_URL && 
+                         APPS_SCRIPT_URL.startsWith("https://") && 
+                         APPS_SCRIPT_URL.indexOf("exec") !== -1;
+
+      if (!isUrlValid) {
+        syncDot.className = "sync-dot offline";
+        syncText.innerText = "Koneksi Offline (Gunakan data simulasi lokal)";
+        syncTime.innerText = "";
+        updateAllViews();
+        return;
+      }
+
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, { method: "GET" });
+        if (!response.ok) throw new Error("Koneksi gagal");
+        
+        const data = await response.json();
+        
+        if (Array.isArray(data)) {
+          const uniquePatientsMap = new Map();
+          
+          // Gabungkan data simulasi dengan database nyata dari Google Sheets
+          defaultPatients.forEach(p => uniquePatientsMap.set(p.id, p));
+          data.forEach(p => {
+            if(p.id) {
+              uniquePatientsMap.set(p.id, {
+                id: p.id,
+                name: p.name || "",
+                terapi: p.terapi || "Terapi Muskuloskeletal",
+                terapis: p.terapis || "Ftr. Al Subur",
+                tanggal: p.tanggal || "2025-06-09",
+                jam: p.jam || "08:00",
+                status: p.status ? p.status.toLowerCase() : "menunggu",
+                keluhan: p.keluhan || "Keluhan nyeri fungsional motorik"
+              });
+            }
+          });
+
+          allPatients = Array.from(uniquePatientsMap.values());
+          syncDot.className = "sync-dot online";
+          syncText.innerText = "Database Terhubung & Sinkron";
+          syncTime.innerText = `· Terakhir sinkron: ${new Date().toLocaleTimeString('id-ID')} WIB`;
+          showToast("🔄 Sinkronisasi cloud berhasil!");
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        syncDot.className = "sync-dot offline";
+        syncText.innerText = "Koneksi Bermasalah (Gunakan data simulasi)";
+        syncTime.innerText = "";
+      }
+
+      updateAllViews();
+    }
+
+    /* ── RENDERING DATA VIEWS ── */
+    function updateAllViews() {
+      applyTableFilters();
+      updateDashboardStats();
+      renderSubpagesData();
+    }
+
+    function applyTableFilters() {
+      let result = [...allPatients];
+
+      if (statusFilter !== 'Semua') {
+        const map = { Menunggu:'menunggu', Proses:'proses', Selesai:'selesai' };
+        result = result.filter(p => p.status === map[statusFilter]);
+      }
+
+      if (therapistFilter !== "") {
+        result = result.filter(p => p.terapis === therapistFilter);
+      }
+
+      if (searchQuery !== "") {
+        result = result.filter(p => p.name.toLowerCase().includes(searchQuery) || p.id.toLowerCase().includes(searchQuery));
+      }
+
+      filteredPatients = result;
+      currentPage = 1;
+      renderPatientTable();
+    }
+
+    function renderPatientTable() {
+      const tbody = document.getElementById('tableBody');
+      if(!tbody) return;
+
+      const totalItems = filteredPatients.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+      const slicedData = filteredPatients.slice(startIndex, endIndex);
+
+      tbody.innerHTML = slicedData.map((p, i) => {
+        const color = colors[i % colors.length];
+        return `
+          <tr>
+            <td>
+              <div class="patient-row-info">
+                <div class="patient-circle-avatar" style="background:${color}18; color:${color}">${initials(p.name)}</div>
+                <div>
+                  <div class="patient-text-name">${p.name}</div>
+                  <div class="patient-text-id">${p.id}</div>
+                </div>
+              </div>
+            </td>
+            <td>${p.terapi}</td>
+            <td><strong>${p.terapis}</strong></td>
+            <td>${p.tanggal}</td>
+            <td><strong>${p.jam}</strong></td>
+            <td><span class="status-chip ${p.status}">${statusLabels[p.status]}</span></td>
+            <td><button class="action-badge-btn" onclick="openPatientDetailModal('${p.id}')">Rekam Medis</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      const infoSpan = document.getElementById('paginationInfo');
+      if (infoSpan) {
+        infoSpan.textContent = totalItems === 0 ? "Menampilkan 0–0 dari 0 pasien" : `Menampilkan ${startIndex + 1}–${endIndex} dari ${totalItems} pasien`;
+      }
+
+      renderPaginationControls(totalPages);
+    }
+
+    function renderPaginationControls(totalPages) {
+      const container = document.getElementById('paginationBtns');
+      if(!container) return;
+
+      let btnsHTML = `<button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">‹</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        btnsHTML += `<button class="pagination-btn ${currentPage === i ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+      }
+
+      btnsHTML += `<button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">›</button>`;
+      container.innerHTML = btnsHTML;
+    }
+
+    function changePage(pageNumber) {
+      currentPage = pageNumber;
+      renderPatientTable();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.toLowerCase().trim();
+      applyTableFilters();
+    }
+
+    function setFilterTab(btn, label) {
+      document.querySelectorAll('.pill-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      statusFilter = label;
+      applyTableFilters();
+    }
+
+    function handleTherapistFilter(name) {
+      therapistFilter = name;
+      applyTableFilters();
+    }
+
+    /* ── STATS & SUBPAGES RENDER ── */
+    function updateDashboardStats() {
+      const totalPatients = allPatients.length;
+      const waitingPatients = allPatients.filter(p => p.status === 'menunggu').length;
+      const donePatients = allPatients.filter(p => p.status === 'selesai').length;
+
+      document.getElementById("statsTotal").innerText = totalPatients;
+      document.getElementById("statsQueue").innerText = waitingPatients;
+      document.getElementById("statsDone").innerText = donePatients;
+
+      const queueTrend = document.getElementById("statsQueueTrend");
+      if(queueTrend) {
+        queueTrend.innerText = waitingPatients > 5 ? "↑ Padat" : "Normal";
+        queueTrend.className = waitingPatients > 5 ? "stat-card-trend down" : "stat-card-trend up";
+      }
+
+      // Sidebar badges
+      document.getElementById("pendingRegisterCount").innerText = waitingPatients;
+      document.getElementById("totalPatientsCount").innerText = totalPatients;
+      document.getElementById("headerQueueBadge").innerText = waitingPatients;
+    }
+
+    function renderSubpagesData() {
+      // 1. Pendaftaran Page
+      const pendaftaranList = document.getElementById("pendaftaranList");
+      if(pendaftaranList) {
+        const queueList = allPatients.filter(p => p.status === 'menunggu' || p.status === 'proses');
+        pendaftaranList.innerHTML = queueList.length === 0 ? 
+          `<tr><td colspan="6" style="text-align:center; color:var(--text-light)">Tidak ada antrian aktif hari ini</td></tr>` : 
+          queueList.map(p => `
+            <tr>
+              <td><strong>${p.id}</strong></td>
+              <td style="font-weight:700;">${p.name}</td>
+              <td>${p.terapi}</td>
+              <td>${p.terapis}</td>
+              <td>${p.tanggal} (Jam ${p.jam})</td>
+              <td><span class="status-chip ${p.status}">${statusLabels[p.status]}</span></td>
+            </tr>
+          `).join('');
+      }
+
+      // 2. Pasien List Page
+      const pasienList = document.getElementById("pasienList");
+      if(pasienList) {
+        pasienList.innerHTML = allPatients.map(p => `
+          <tr>
+            <td><strong>${p.id}</strong></td>
+            <td style="font-weight:700;">${p.name}</td>
+            <td>${p.terapi}</td>
+            <td>${p.terapis}</td>
+            <td>${p.tanggal}</td>
+            <td><span class="status-chip ${p.status}">${statusLabels[p.status]}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      // 3. Timeline Sesi Hari Ini (Dashboard)
+      const scheduleList = document.getElementById("scheduleList");
+      if(scheduleList) {
+        const todaySchedules = [...allPatients].sort((a,b) => a.jam.localeCompare(b.jam)).slice(0, 5);
+        scheduleList.innerHTML = todaySchedules.map(p => `
+          <div class="timeline-item">
+            <div class="timeline-time-badge">${p.jam}</div>
+            <div class="timeline-content">
+              <div class="timeline-patient-name">${p.name}</div>
+              <div class="timeline-therapy-type">${p.terapi}</div>
+              <div class="timeline-therapist-badge">${p.terapis}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 4. Jadwal Page Detail
+      const jadwalSesiDetailList = document.getElementById("jadwalSesiDetailList");
+      if(jadwalSesiDetailList) {
+        const sortedSchedules = [...allPatients].sort((a,b) => a.jam.localeCompare(b.jam));
+        jadwalSesiDetailList.innerHTML = sortedSchedules.map((p, idx) => `
+          <div style="background:var(--bg-card); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-color); border-left:6px solid ${colors[idx % colors.length]}; display:flex; justify-content:space-between; align-items:center; box-shadow:var(--shadow-sm);">
+            <div>
+              <span style="font-size:14px; font-weight:800; color:var(--primary); margin-right:12px;">🕒 Sesi ${p.jam}</span>
+              <strong style="font-size:16px;">${p.name}</strong> — <span style="color:var(--text-muted); font-size:14px;">${p.terapi}</span>
+            </div>
+            <div style="text-align:right;">
+              <span style="font-size:13px; font-weight:700; color:var(--text-main); display:block;">Ruang Terapi ${(idx % 3) + 1}</span>
+              <span style="font-size:12px; color:var(--text-muted);">${p.terapis}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 5. Rekam Medis Page
+      const rekamMedisList = document.getElementById("rekamMedisList");
+      if(rekamMedisList) {
+        const diagnosas = [
+          "Nyeri kronis sendi lutut kanan (Osteoartritis)",
+          "Pemulihan pasca Stroke Iskemik (Hemiparese Kiri)",
+          "Keterlambatan motorik kasar (Cerebral Palsy)",
+          "Cedera robekan ligamen ACL Lutut Pasca Olahraga",
+          "Kekakuan gerak punggung bawah (Hernia Nukleus Pulposus)",
+          "Pemulihan kapasitas pernapasan pasca Pneumonia"
+        ];
+        const catatans = [
+          "Terapi modalitas infra-red, latihan penguatan otot kuadrisep, hindari melompat.",
+          "Latihan mobilisasi sendi pasif-aktif, latihan stimulasi saraf, koordinasi berjalan.",
+          "Latihan motorik merangkak, keseimbangan duduk, fisioterapi tumbuh kembang anak.",
+          "Terapi stimulasi listrik (TENS), pembatasan beban tekuk, penguatan tendon paha.",
+          "Traksi lumbal terapi, edukasi postur duduk ergonomis, core muscle strengthening.",
+          "Latihan pernapasan dalam (Deep breathing exercise), postural drainage paru."
+        ];
+
+        rekamMedisList.innerHTML = allPatients.map((p, idx) => {
+          const diag = diagnosas[idx % diagnosas.length];
+          const cat = catatans[idx % catatans.length];
+          return `
+            <tr>
+              <td><strong>${p.id}</strong></td>
+              <td style="font-weight:700;">${p.name}</td>
+              <td><span style="color:var(--error); font-weight:700;">${diag}</span></td>
+              <td style="color:var(--text-muted); font-size:13px;">${cat}</td>
+              <td><strong>${p.terapis}</strong></td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 6. Terapis Cards
+      const terapisContainer = document.getElementById("terapisListContainer");
+      if(terapisContainer) {
+        terapisContainer.innerHTML = therapists.map(t => {
+          const loadPatients = allPatients.filter(p => p.terapis === t.name).length;
+          const pct = Math.min((loadPatients / 6) * 100, 100);
+          return `
+            <div class="therapist-card">
+              <div class="therapist-top">
+                <div class="therapist-title">
+                  <h3>${t.name}</h3>
+                  <span>${t.specialty}</span>
+                </div>
+                <div class="therapist-illustration">${t.icon}</div>
+              </div>
+              <p class="therapist-bio">${t.bio}</p>
+              <div class="therapist-workload">
+                <div class="workload-bar-label">
+                  <span>Beban Antrean Hari Ini</span>
+                  <span>${loadPatients} Pasien</span>
+                </div>
+                <div class="workload-bar-track">
+                  <div class="workload-bar-fill" style="width: ${pct}%"></div>
+                </div>
+              </div>
+              <div class="therapist-badges">
+                <span class="status-chip proses" style="font-size:10px;">Shift: ${t.shift}</span>
+                <span class="status-chip selesai" style="font-size:10px;">Total: ${t.sessions}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 7. Jenis Terapi Katalog
+      const jenisTerapiContainer = document.getElementById("jenisTerapiContainer");
+      if(jenisTerapiContainer) {
+        jenisTerapiContainer.innerHTML = therapyLayanans.map(ty => `
+          <div class="therapist-card">
+            <div class="therapist-top">
+              <div class="therapist-title">
+                <h3>${ty.name}</h3>
+                <span style="color:var(--accent);">${ty.code}</span>
+              </div>
+              <div class="therapist-illustration" style="background:var(--accent-pale); font-size:20px;">⚡</div>
+            </div>
+            <p class="therapist-bio">${ty.description}</p>
+            <div class="therapist-badges" style="margin-top:auto;">
+              <span class="status-chip proses" style="font-size:10px;">⏱️ ${ty.duration}</span>
+              <span class="status-chip selesai" style="font-size:10px; font-weight:bold; background:var(--success-pale); color:var(--success);">💰 ${ty.price}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 8. Pembayaran/Billing List
+      const pembayaranList = document.getElementById("pembayaranList");
+      if(pembayaranList) {
+        const payMethods = ["Transfer BCA", "QRIS Mandiri", "Tunai (Kasir)", "Asuransi BPJS"];
+        pembayaranList.innerHTML = allPatients.map((p, idx) => {
+          const invNum = `INV-20250${100 + idx}`;
+          const method = payMethods[idx % payMethods.length];
+          const totalCost = p.status === 'selesai' ? "Rp 250.000 (Lunas)" : "Rp 250.000 (Pending)";
+          const statusClass = p.status === 'selesai' ? "selesai" : "menunggu";
+          return `
+            <tr>
+              <td><strong>${invNum}</strong></td>
+              <td style="font-weight:700;">${p.name}</td>
+              <td>${p.terapi}</td>
+              <td><span style="font-size:12px; font-weight:700; color:var(--text-muted);">${method}</span></td>
+              <td><strong>${totalCost}</strong></td>
+              <td><span class="status-chip ${statusClass}">${p.status === 'selesai' ? 'Lunas' : 'Tertunda'}</span></td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 9. Laporan & Grafik Persentase
+      const reportTotalCount = document.getElementById("reportTotalCount");
+      const reportDoneCount = document.getElementById("reportDoneCount");
+      const reportQueueCount = document.getElementById("reportQueueCount");
+      if(reportTotalCount) reportTotalCount.innerText = `${allPatients.length} Pasien`;
+      if(reportDoneCount) reportDoneCount.innerText = `${allPatients.filter(p => p.status === 'selesai').length} Sesi`;
+      if(reportQueueCount) reportQueueCount.innerText = `${allPatients.filter(p => p.status === 'menunggu').length} Sesi`;
+
+      const terapiChart = document.getElementById("terapiDistributionChart");
+      if(terapiChart) {
+        const therapyCounts = {};
+        therapyLayanans.forEach(t => therapyCounts[t.name] = 0);
+        allPatients.forEach(p => {
+          if (therapyCounts[p.terapi] !== undefined) therapyCounts[p.terapi]++;
+        });
+
+        const maxVal = Math.max(...Object.values(therapyCounts)) || 1;
+        terapiChart.innerHTML = therapyLayanans.map(t => {
+          const count = therapyCounts[t.name];
+          const pct = (count / maxVal) * 100;
+          return `
+            <div class="chart-bar-row">
+              <div class="chart-row-label">${t.name}</div>
+              <div class="chart-row-track">
+                <div class="chart-row-fill" style="width: ${pct}%"></div>
+              </div>
+              <div class="chart-row-val">${count} Pasien</div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    /* ── AUDIT TRAILS (DEMO DATA) ── */
+    function insertActivities() {
+      const list = document.getElementById("activityList");
+      if(!list) return;
+
+      const logs = [
+        { icon: 'plus', text: 'Pendaftaran Pasien baru <strong>Doni Prasetyo</strong> berhasil.', time: '10 Menit Lalu' },
+        { icon: 'check', text: 'Ftr. Al Subur menyelesaikan sesi <strong>Siti Rahayu</strong>.', time: '30 Menit Lalu' },
+        { icon: 'card', text: 'Invoice <strong>INV-20250102</strong> lunas dibayarkan via QRIS.', time: '1 Jam Lalu' },
+        { icon: 'plus', text: 'Pendaftaran Pasien baru <strong>Hendra Kusuma</strong> berhasil.', time: '2 Jam Lalu' }
+      ];
+
+      list.innerHTML = logs.map(l => `
+        <div class="activity-item">
+          <div class="activity-circle">
+            <iconify-icon icon="lucide:info"></iconify-icon>
+          </div>
+          <div class="activity-body">
+            <div class="activity-text">${l.text}</div>
+            <div class="activity-time">${l.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ── SYSTEM POPUPS / MODAL CONTROLLERS ── */
+    function openAddPatientModal() {
+      document.getElementById("addPatientModal").classList.add("open");
+    }
+
+    function closeAddPatientModal() {
+      document.getElementById("addPatientModal").classList.remove("open");
+      resetPatientForm();
+    }
+
+    function openPatientDetailModal(id) {
+      const p = allPatients.find(x => x.id === id);
+      if(!p) return;
+
+      // Pain points based on therapy type
+      let painPointsMarkup = '';
+      if(p.terapi.includes("Muskuloskeletal") || p.terapi.includes("Geriatri")) {
+        painPointsMarkup = `<circle class="pain-point" cx="80" cy="120" r="5" /><circle class="pain-point" cx="80" cy="140" r="5" />`; // Lower back / knee
+      } else if (p.terapi.includes("Olahraga")) {
+        painPointsMarkup = `<circle class="pain-point" cx="100" cy="140" r="5" /><circle class="pain-point" cx="60" cy="140" r="5" />`; // Hamstring/Knee
+      } else {
+        painPointsMarkup = `<circle class="pain-point" cx="80" cy="50" r="5" />`; // Neck/Shoulder/Head
+      }
+
+      const modalContent = document.getElementById("patientDetailContent");
+      modalContent.innerHTML = `
+        <div class="med-card-body">
+          <div class="med-card-avatar">${initials(p.name)}</div>
+          <div class="med-card-details">
+            <h3>${p.name}</h3>
+            <p><strong>ID Pasien:</strong> ${p.id}</p>
+            <p><strong>Diagnosis Utama:</strong> <span style="color:var(--error); font-weight:700;">${p.keluhan || 'Nyeri fungsional motorik'}</span></p>
+            <p><strong>Terapi Diresepkan:</strong> ${p.terapi} oleh <strong>${p.terapis}</strong></p>
+          </div>
+        </div>
+
+        <div class="med-info-grid">
+          <div>
+            <span class="med-info-label">Tanggal Kunjungan</span>
+            <div class="med-info-value">${p.tanggal}</div>
+          </div>
+          <div>
+            <span class="med-info-label">Sesi Jam</span>
+            <div class="med-info-value">${p.jam} WIB</div>
+          </div>
+          <div>
+            <span class="med-info-label">Status Terapi</span>
+            <div class="med-info-value"><span class="status-chip ${p.status}">${statusLabels[p.status]}</span></div>
+          </div>
+          <div>
+            <span class="med-info-label">Penanggung Jawab</span>
+            <div class="med-info-value">${p.terapis}</div>
+          </div>
+        </div>
+
+        <div class="body-map-illustration">
+          <span class="body-map-title">Peta Titik Nyeri Fisioterapi</span>
+          <svg class="body-map-svg" viewBox="0 0 160 200">
+            <!-- Simple Human Body SVG Outline -->
+            <circle cx="80" cy="35" r="15" /> <!-- Head -->
+            <path d="M80 50 L80 130" /> <!-- Spine -->
+            <path d="M50 70 L110 70" /> <!-- Shoulders -->
+            <path d="M50 70 L40 110" /> <!-- Left Arm -->
+            <path d="M110 70 L120 110" /> <!-- Right Arm -->
+            <path d="M80 130 L60 180" /> <!-- Left Leg -->
+            <path d="M80 130 L100 180" /> <!-- Right Leg -->
+            <!-- Highlight pain locations -->
+            ${painPointsMarkup}
+          </svg>
+        </div>
+
+        <div class="modal-footer" style="margin-top:20px; padding-top:16px;">
+          <button class="btn btn-secondary" onclick="closePatientDetailModal()">Tutup Kartu</button>
+        </div>
+      `;
+
+      document.getElementById("patientDetailModal").classList.add("open");
+    }
+
+    function closePatientDetailModal() {
+      document.getElementById("patientDetailModal").classList.remove("open");
+    }
+
+    function closeModalOutside(e, modalId) {
+      if (e.target === document.getElementById(modalId)) {
+        document.getElementById(modalId).classList.remove("open");
+        if(modalId === 'addPatientModal') resetPatientForm();
+      }
+    }
+
+    /* ── FORM SUBMIT & INTEGRATION ── */
+    async function submitRegistration() {
+      const name = document.getElementById("fNama").value.trim();
+      const phone = document.getElementById("fPhone").value.trim();
+      const terapi = document.getElementById("fTerapi").value;
+      const terapis = document.getElementById("fTerapis").value;
+      const tanggal = document.getElementById("fTanggal").value;
+      const jam = document.getElementById("fJam").value;
+      const keluhan = document.getElementById("fKeluhan").value.trim();
+
+      if (!name || !phone || !terapi || !terapis || !tanggal || !jam) {
+        showToast("⚠️ Mohon lengkapi semua kolom bertanda bintang (*)");
+        return;
+      }
+
+      const submitBtn = document.getElementById("btnSimpan");
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Mengirim Data...";
+
+      const newId = `PT-${2500 + allPatients.length + 1}`;
+      const newPatient = { id: newId, name, terapi, terapis, tanggal, jam, status: 'menunggu', keluhan: keluhan || "Nyeri fungsional motorik" };
+
+      const isUrlValid = APPS_SCRIPT_URL && 
+                         APPS_SCRIPT_URL.startsWith("https://") && 
+                         APPS_SCRIPT_URL.indexOf("exec") !== -1;
+
+      if (isUrlValid) {
+        try {
+          await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newPatient)
+          });
+          
+          allPatients.unshift(newPatient);
+          showToast("✅ Sukses terdaftar & tersimpan di Google Sheet!");
+        } catch (e) {
+          console.error(e);
+          allPatients.unshift(newPatient);
+          showToast("⚠️ Hubungan terputus. Disimpan secara lokal!");
+        }
+      } else {
+        allPatients.unshift(newPatient);
+        showToast("✅ Berhasil terdaftar secara lokal!");
+      }
+
+      updateAllViews();
+      closeAddPatientModal();
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Daftarkan Pasien";
+    }
+
+    function resetPatientForm() {
+      ['fNama', 'fKtp', 'fTglLahir', 'fGender', 'fPhone', 'fEmail', 'fTerapi', 'fTerapis', 'fTanggal', 'fJam', 'fKeluhan'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = '';
+      });
+    }
+
+    function saveSettings() {
+      const urlInput = document.getElementById("cfgAppsScriptUrl");
+      if(urlInput) {
+        const cleanUrl = urlInput.value.trim();
+        localStorage.setItem("APPS_SCRIPT_URL", cleanUrl);
+        APPS_SCRIPT_URL = cleanUrl;
+        showToast("💾 Konfigurasi Database Berhasil Disimpan!");
+        fetchPatientsFromSheets();
+      }
+    }
+
+    /* ── CSV EXPORTER ── */
+    function exportDataToCsv() {
+      let csvContent = "data:text/csv;charset=utf-8,ID Pasien,Nama Pasien,Jenis Terapi,Terapis,Tanggal,Jam,Status,Keluhan\n";
+      allPatients.forEach(p => {
+        csvContent += `"${p.id}","${p.name}","${p.terapi}","${p.terapis}","${p.tanggal}","${p.jam}","${p.status}","${p.keluhan || ''}"\n`;
+      });
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `FisioHub_Pasien_Export_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast("📥 Berhasil mengekspor data ke file CSV!");
+    }
+
+    /* ── SYSTEM TOAST CONTROLLER ── */
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      const toastMsg = document.getElementById("toastMsg");
+      const toastIcon = document.getElementById("toastIcon");
+
+      if(!toast || !toastMsg) return;
+
+      toastMsg.innerText = msg;
+      
+      // Select appropriate icon
+      if(msg.includes("⚠️")) {
+        toastIcon.innerText = "⚠️";
+      } else if (msg.includes("💾") || msg.includes("📥")) {
+        toastIcon.innerText = "💾";
+      } else {
+        toastIcon.innerText = "✅";
+      }
+
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
