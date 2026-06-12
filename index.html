@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FisioHub Elite — Sistem Manajemen Klinik Fisioterapi Premium</title>
+  <title>Klinik Berkah Sehat — Sistem Manajemen Klinik Premium</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,15 +17,15 @@
     /* ── SYSTEM DESIGN SYSTEM & VARIABLES ── */
     :root {
       /* Light Theme Colors */
-      --primary: #0d9488;
-      --primary-light: #14b8a6;
-      --primary-dark: #0f766e;
-      --primary-glow: rgba(13, 148, 136, 0.15);
-      --primary-pale: #f0fdfa;
+      --primary: #7c3aed;
+      --primary-light: #a78bfa;
+      --primary-dark: #6d28d9;
+      --primary-glow: rgba(124, 58, 237, 0.15);
+      --primary-pale: #f5f3ff;
       
-      --accent: #6366f1;
-      --accent-light: #818cf8;
-      --accent-pale: #e0e7ff;
+      --accent: #f59e0b;
+      --accent-light: #fbbf24;
+      --accent-pale: #fef3c7;
       
       --bg-main: #f8fafc;
       --bg-sidebar: #ffffff;
@@ -40,8 +40,8 @@
       --glass-blur: blur(12px);
       
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 20px -2px rgba(15, 118, 110, 0.08);
-      --shadow-lg: 0 12px 30px -4px rgba(15, 118, 110, 0.12);
+      --shadow-md: 0 4px 20px -2px rgba(124, 58, 237, 0.08);
+      --shadow-lg: 0 12px 30px -4px rgba(124, 58, 237, 0.12);
       --shadow-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
       
       --radius-sm: 8px;
@@ -66,26 +66,26 @@
 
     [data-theme="dark"] {
       /* Dark Theme Colors */
-      --primary: #14b8a6;
-      --primary-light: #2dd4bf;
-      --primary-dark: #0d9488;
-      --primary-glow: rgba(20, 184, 166, 0.25);
-      --primary-pale: #0d2e2b;
+      --primary: #a78bfa;
+      --primary-light: #c084fc;
+      --primary-dark: #7c3aed;
+      --primary-glow: rgba(167, 139, 250, 0.25);
+      --primary-pale: #2e1065;
       
-      --accent: #818cf8;
-      --accent-light: #a5b4fc;
-      --accent-pale: #1e1b4b;
+      --accent: #fbbf24;
+      --accent-light: #fcd34d;
+      --accent-pale: #451a03;
       
-      --bg-main: #0b0f19;
-      --bg-sidebar: #111827;
-      --bg-card: #1f2937;
+      --bg-main: #070a13;
+      --bg-sidebar: #0c1020;
+      --bg-card: #0f1527;
       
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-light: #64748b;
       
-      --border-color: #374151;
-      --glass-bg: rgba(17, 24, 39, 0.7);
+      --border-color: #1e293b;
+      --glass-bg: rgba(12, 16, 32, 0.7);
       --glass-blur: blur(12px);
       
       --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
@@ -280,54 +280,60 @@
     /* ── SYSTEM CONTAINER LAYOUT ── */
     .system-container {
       display: flex;
+      flex-direction: column;
       flex: 1;
       position: relative;
     }
 
-    /* ── GLASSMORPHIC SIDEBAR ── */
+    /* ── HORIZONTAL NAVIGATION BAR (FORMERLY SIDEBAR) ── */
     aside {
-      width: 260px;
+      width: 100%;
+      height: 64px;
       background: var(--bg-sidebar);
-      border-right: 1px solid var(--border-color);
-      padding: 24px 16px;
+      border-bottom: 1px solid var(--border-color);
+      border-right: none;
+      padding: 0 32px;
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      flex-direction: row;
+      gap: 8px;
       position: sticky;
       top: 72px;
-      height: calc(100vh - 72px);
-      overflow-y: auto;
+      z-index: 90;
+      overflow-x: auto;
+      align-items: center;
       transition: background var(--transition-normal), border var(--transition-normal);
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
+    aside::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
     }
 
     .sidebar-section-title {
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--text-light);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 14px 12px 6px;
+      display: none;
     }
 
     .sidebar-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
+      gap: 8px;
+      padding: 8px 16px;
       border-radius: var(--radius-md);
       cursor: pointer;
       transition: all var(--transition-fast);
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
       color: var(--text-muted);
       border: 1px solid transparent;
       background: none;
-      width: 100%;
+      width: auto;
       text-align: left;
+      white-space: nowrap;
     }
 
     .sidebar-item iconify-icon {
-      font-size: 20px;
+      font-size: 18px;
       transition: transform var(--transition-fast);
     }
 
@@ -337,7 +343,7 @@
     }
 
     .sidebar-item:hover iconify-icon {
-      transform: translateX(2px);
+      transform: translateY(-1px);
     }
 
     .sidebar-item.active {
@@ -347,12 +353,12 @@
     }
 
     .sidebar-badge {
-      margin-left: auto;
-      background: rgba(13, 148, 136, 0.1);
+      margin-left: 6px;
+      background: rgba(124, 58, 237, 0.15);
       color: var(--primary);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
       border-radius: var(--radius-pill);
     }
 
@@ -364,9 +370,9 @@
     /* ── MAIN CONTENT AREA ── */
     main {
       flex: 1;
-      padding: 40px;
+      padding: 32px;
       overflow-y: auto;
-      max-width: calc(100vw - 260px);
+      max-width: 100vw;
     }
 
     .page-view {
@@ -1574,10 +1580,10 @@
   <!-- HEADER -->
   <header>
     <a href="#" class="brand" onclick="showPageView('dashboard')">
-      <div class="brand-icon-wrapper">
-        <iconify-icon icon="lucide:cross"></iconify-icon>
+      <div class="brand-icon-wrapper" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+        <iconify-icon icon="lucide:heart-pulse"></iconify-icon>
       </div>
-      <span class="brand-name">Fisio<span>Hub</span></span>
+      <span class="brand-name">Berkah<span>Sehat</span></span>
     </a>
     
     <div class="header-controls">
@@ -1680,7 +1686,7 @@
         <div class="page-header">
           <div class="page-headline">
             <h1 id="welcomeText">Selamat Pagi, Admin 👋</h1>
-            <p>Klinik Fisioterapi Sehat Prima · Agenda & Perkembangan Sesi Fisioterapi</p>
+            <p>Klinik Berkah Sehat · Agenda & Perkembangan Sesi Fisioterapi</p>
           </div>
           <button class="btn btn-primary" onclick="openAddPatientModal()">
             <iconify-icon icon="lucide:plus" style="font-size: 18px;"></iconify-icon>
@@ -2879,7 +2885,7 @@
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `FisioHub_Pasien_Export_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `Klinik_Berkah_Sehat_Pasien_Export_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
